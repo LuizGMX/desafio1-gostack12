@@ -34,11 +34,9 @@ app.put("/repositories/:id", (request, response) => {
 
   const { id } = request.params;
 
-  const { title, url, techs, likes } = request.body;
+  const {title, url, techs} = request.body;
 
-  if (likes == null) {
-
-    const repositorieIndex = repositories.findIndex(repository => repository.id === id);
+  const repositorieIndex = repositories.findIndex(repository => repository.id === id);
 
     if (repositorieIndex < 0) {
       return response.status(400).json({
@@ -47,19 +45,15 @@ app.put("/repositories/:id", (request, response) => {
 
     } else {
 
-      const repository = { id, title, url, techs };
+      var likes = (repositories[repositorieIndex].likes);
+
+      const repository = { id, title, url, techs, likes };
 
       repositories[repositorieIndex] = repository;
 
       return response.json(repository)
     }
 
-
-  } else {
-
-    console.log(likes);
-    return response.status(400).json({ error: 'Essa rota não pode atualizar o número de likess' })
-  }
 
 });
 
