@@ -104,8 +104,6 @@ app.post("/repositories/:id/like", (request, response) => {
     }
   }
 
-  like = "0" + like;
-
   const repository = { id, like, title, url, techs };
 
   //repositories.push(repository);
