@@ -21,7 +21,8 @@ app.get("/repositories", (request, response) => {
 app.post("/repositories", (request, response) => {
 
   const { title, url, techs } = request.body;
-  const repository = { id: uuid(), title, url, techs };
+  const likes = 0;
+  const repository = { id: uuid(), title, url, techs, likes };
 
   repositories.push(repository);
 
@@ -33,9 +34,9 @@ app.put("/repositories/:id", (request, response) => {
 
   const { id } = request.params;
 
-  const { title, url, techs, like } = request.body;
+  const { title, url, techs, likes } = request.body;
 
-  if (like == null) {
+  if (likes == null) {
 
     const repositorieIndex = repositories.findIndex(repository => repository.id === id);
 
@@ -56,8 +57,8 @@ app.put("/repositories/:id", (request, response) => {
 
   } else {
 
-    console.log(like);
-    return response.status(400).json({ error: 'Essa rota não pode atualizar o número de likes' })
+    console.log(likes);
+    return response.status(400).json({ error: 'Essa rota não pode atualizar o número de likess' })
   }
 
 });
@@ -92,19 +93,19 @@ app.post("/repositories/:id/like", (request, response) => {
     var title = (repositories[repositorieIndex].title);
     var url = (repositories[repositorieIndex].url);
     var techs = (repositories[repositorieIndex].techs);
-    var like = (repositories[repositorieIndex].like);
+    var likes = (repositories[repositorieIndex].likes);
 
-    like = parseInt(like);
+    likes = parseInt(likes);
 
-    if (isNaN(like) === true || like === 'undefined') {
-      like = 0;
-      like = like + 1;
+    if (isNaN(likes) === true || likes === 'undefined') {
+      likes = 0;
+      likes = likes + 1;
     } else {
-      like = like + 1;
+      likes = likes + 1;
     }
   }
 
-  const repository = { id, like, title, url, techs };
+  const repository = { id, likes, title, url, techs };
 
   //repositories.push(repository);
 
